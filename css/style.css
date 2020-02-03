@@ -22,6 +22,7 @@ header {
     margin-top: auto;
     margin-bottom: auto;
     max-height: 30px;
+    font-size: 15px;
 }
 
 #nav_bar #logo {
@@ -31,6 +32,12 @@ header {
 
 #nav_bar #connect {
     margin-left: auto;
+    cursor: pointer;
+    padding: 2px 5px 2px;
+}
+
+#nav_bar #connect:hover {
+    background-color: #e3e3e3;
 }
 
 #nav_bar form {
@@ -52,13 +59,44 @@ header {
     width: 30px
 }
 
-#nav_bar button {
-    background-color: white;
-    border-style: solid;
-    border-color: black;
-    height: 30px;
-}
-
 #nav_bar button:hover {
     background-color: #d6d6d6;
+}
+
+#side_nav_container {
+    position: fixed;
+    height: 100% ;
+    top: 0;
+    visibility: hidden;
+}
+
+#side_nav {
+    position: relative;
+    overflow: hidden;
+    visibility: visible;
+    height: 100%;
+    left: -100%;
+    transition-property: left;
+    transition-duration: 0.5s;
+    background-color: black;
+    color: white;
+    padding : 0 15px 0;
+}
+
+#side_nav a {
+    color: white;
+}
+
+#side_nav.triggered {
+    left: 0;
+}
+
+#side_nav_button {
+    cursor: pointer;
+    padding: 3px;
+    transition: padding 0.2s;
+}
+
+#side_nav_button:hover {
+    padding: 0;
 }
