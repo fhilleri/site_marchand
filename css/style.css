@@ -95,8 +95,41 @@ header {
     cursor: pointer;
     padding: 3px;
     transition: padding 0.2s;
+    max-width: 30px;
 }
 
 #side_nav_button:hover {
     padding: 0;
+}
+
+#profil_panel {
+    margin-left: auto;
+    position: relative;
+}
+
+#profil_panel_button {
+    border-style: none;
+    background-color: white;
+    padding: 2px 5px 2px;
+    margin-left: auto;
+    cursor: pointer;
+    height: 30px;
+    width: 100%;
+    text-align: left;
+}
+
+#profil_panel_content {
+    max-height: initial;
+    overflow: hidden;
+    height: 0;
+    transition: height 0.2s;
+    background-color: white;
+}
+
+#profil_panel:hover #profil_panel_content {
+    height: 60px;
+}
+
+#profil_panel_content a {
+    display: block;
 }

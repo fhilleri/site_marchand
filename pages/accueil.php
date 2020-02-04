@@ -18,10 +18,32 @@
                 <form>
                     <input type="text">
                 </form>
-                <div id="separator"></div>
-                <a id="connect">
+
+                <?php if (false)
+                {
+                ?>
+
+                    <a id="connect">
                     Se connecter
-                </a>
+                    </a>
+                <?php
+                }
+                else
+                {
+                ?>
+                    <div id="profil_panel">
+                        <button id="profil_panel_button">
+                            Username
+                        </button>
+                        <div id="profil_panel_content">
+                            <a href="">Mon compte</a>
+                            <a href="">Mon panier</a>
+                            <a href="">Se déconnecter</a>
+                        </div>
+                    </div>
+
+                <?php
+                }?>
             </div>
         </header>
         <div id="side_nav_container">
