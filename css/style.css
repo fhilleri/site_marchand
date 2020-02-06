@@ -1,3 +1,7 @@
+html {
+    height: 100%;
+}
+
 * {
     box-sizing: border-box;
     font-family: 'Open Sans', sans-serif;
@@ -5,12 +9,17 @@
 
 body {
     margin: 0;
+    position: relative;
+    min-height: 100%;;
 }
 
 header {
     padding: 10px;
     border-bottom-width: 1px;
     border-bottom-style: solid;
+    position: fixed;
+    background-color: white;
+    width: 100%;
 }
 
 #nav_bar {
@@ -44,6 +53,7 @@ header {
     flex-grow: 1;
     max-width: 400px;
     height: 30px;
+    margin-right: 20px;
 }
 
 #nav_bar form input {
@@ -102,12 +112,13 @@ header {
     padding: 0;
 }
 
-#profil_panel {
+#profile_panel {
     margin-left: auto;
     position: relative;
+    width: 130px;
 }
 
-#profil_panel_button {
+#profile_panel_button {
     border-style: none;
     background-color: white;
     padding: 2px 5px 2px;
@@ -118,7 +129,7 @@ header {
     text-align: left;
 }
 
-#profil_panel_content {
+#profile_panel_content {
     max-height: initial;
     overflow: hidden;
     height: 0;
@@ -126,10 +137,54 @@ header {
     background-color: white;
 }
 
-#profil_panel:hover #profil_panel_content {
-    height: 60px;
+#profile_panel:hover #profile_panel_content {
+    height: 90px;
 }
 
-#profil_panel_content a {
+#profile_panel_content a {
     display: block;
+    text-decoration: none;
+    color: black;
+    height: 30px;
+    line-height: 26px;
+    padding: 2px 5px 2px;
+}
+
+#profile_panel_content a:hover {
+    background-color: #d6d6d6;
+}
+
+#profile_panel button img, 
+#profile_panel_content a img {
+    max-width: 15px;
+    margin-right: 5px;
+    vertical-align: middle;
+}
+
+main {
+    padding-top: 50px;
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+@media screen and (max-width: 500px) {
+    
+    #nav_bar {
+        flex-wrap: wrap;
+    }
+
+    #nav_bar form {
+        order: 2;
+        margin-right: 0;
+        max-width: 100%;
+        margin-top: 10px;
+    }
+
+    main {
+        padding-top: 90px;
+    }
 }

@@ -2,6 +2,7 @@
 <html lang="fr">
     <head>
         <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Site marchand</title>
         <link rel="stylesheet" href="../css/style.css">
         <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet"> 
@@ -16,13 +17,12 @@
                     <img src="../img/logo.png" id="logo">
                 </a>
                 <form>
-                    <input type="text">
+                    <input type="text" name="search">
                 </form>
 
                 <?php if (false)
                 {
                 ?>
-
                     <a id="connect">
                     Se connecter
                     </a>
@@ -31,17 +31,16 @@
                 else
                 {
                 ?>
-                    <div id="profil_panel">
-                        <button id="profil_panel_button">
-                            Username
+                    <div id="profile_panel">
+                        <button id="profile_panel_button">
+                            <img src="../img/arrow.svg">Username
                         </button>
-                        <div id="profil_panel_content">
-                            <a href="">Mon compte</a>
-                            <a href="">Mon panier</a>
-                            <a href="">Se déconnecter</a>
+                        <div id="profile_panel_content">
+                            <a href=""><img src="../img/user.svg">Mon compte</a>
+                            <a href=""><img src="../img/cart.svg">Mon panier</a>
+                            <a href=""><img src="../img/logout.svg">Déconnection</a>
                         </div>
                     </div>
-
                 <?php
                 }?>
             </div>
@@ -65,5 +64,14 @@
                 </ul>
             </nav>
         </div>
+
+        <main>
+            <h1>Contenu</h1>
+            <div style="width: 100%; height: 1500px; background-color: blue;"></div>
+        </main>
+
+        <footer>
+            <div style="width: 100%; height: 200px; background-color: red;"></div>
+        </footer>
     </body>
 </html>
