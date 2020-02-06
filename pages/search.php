@@ -1,3 +1,7 @@
+<?php
+    $s=$_GET["s"];
+?>
+
 <!doctype html>
 <html lang="fr">
     <head>
@@ -16,7 +20,7 @@
                 <a href="">
                     <img src="../img/logo.png" id="logo">
                 </a>
-                <form action="search.php" method="get">
+                <form>
                     <input type="text" name="s">
                 </form>
 
@@ -66,8 +70,49 @@
         </div>
 
         <main>
-            <h1>Contenu</h1>
-            <div style="width: 100%; height: 1500px; background-color: blue;"></div>
+            <h1>Résultats pour la recherche "<?php echo $s ?>"</h1>
+            
+            <div id="result_box">
+                <div class="article">
+                    <div class="front_image">
+                        <img class="front_image" src="../img/article/1/1.jpg"/>
+                    </div>
+                    <div class="description_preview">
+                        <div>
+                            <h3>Honor 7A</h3>
+                            <div>
+                                <img class="rating_stars" src="../img/star.svg"/>
+                                <img class="rating_stars" src="../img/star.svg"/>
+                                <img class="rating_stars" src="../img/star.svg"/>
+                                <img class="rating_stars" src="../img/star.svg"/>
+                                <img class="rating_stars" src="../img/star.svg"/>
+                                (15 avis)
+                            </div>
+                        </div>
+                        <span>120€</span>
+                    </div>
+                </div>
+                <div class="article">
+                    <div class="front_image">
+                        <img class="front_image" src="../img/article/2/1.jpg"/>
+                    </div>
+                    <div class="description_preview">
+                        <div>
+                            <h3>Huawei P Smart 2017 32Gb Noir Smartphone</h3>
+                            <div>
+                                <img class="rating_stars" src="../img/star.svg"/>
+                                <img class="rating_stars" src="../img/star.svg"/>
+                                <img class="rating_stars" src="../img/star.svg"/>
+                                <img class="rating_stars" src="../img/star.svg"/>
+                                <img class="rating_stars" src="../img/star.svg"/>
+                                (15 avis)
+                            </div>
+                        </div>
+                        <span>120€</span>
+                    </div>
+                </div>
+            </div>
+
         </main>
 
         <footer>
