@@ -6,7 +6,7 @@
 <html lang="fr">
     <head>
         <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="viewport" content="width=device-width, initial-scale=0.9">
         <title>Site marchand</title>
         <link rel="stylesheet" href="../css/style.css">
         <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet"> 
@@ -74,13 +74,13 @@
             
             <div id="result_box">
                 <div class="article">
-                    <div class="front_image">
+                    <div class="front_image_contener">
                         <img class="front_image" src="../img/article/1/1.jpg"/>
                     </div>
                     <div class="description_preview">
                         <div>
                             <h3>Honor 7A</h3>
-                            <div>
+                            <div class="rating_stars_container">
                                 <img class="rating_stars" src="../img/star.svg"/>
                                 <img class="rating_stars" src="../img/star.svg"/>
                                 <img class="rating_stars" src="../img/star.svg"/>
@@ -93,13 +93,13 @@
                     </div>
                 </div>
                 <div class="article">
-                    <div class="front_image">
+                    <div class="front_image_contener">
                         <img class="front_image" src="../img/article/2/1.jpg"/>
                     </div>
                     <div class="description_preview">
                         <div>
                             <h3>Huawei P Smart 2017 32Gb Noir Smartphone</h3>
-                            <div>
+                            <div class="rating_stars_container">
                                 <img class="rating_stars" src="../img/star.svg"/>
                                 <img class="rating_stars" src="../img/star.svg"/>
                                 <img class="rating_stars" src="../img/star.svg"/>

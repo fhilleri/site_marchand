@@ -209,8 +209,16 @@ footer {
     margin-top: 20px;
 }
 
-.article .front_image {
+.article .front_image_contener {
     height: 100%;
+    min-width: 200px;
+}
+
+.front_image_contener > .front_image {
+    display: block;
+    height: 100%;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .description_preview {
@@ -219,12 +227,12 @@ footer {
 
 .description_preview > div:nth-child(1) {
     display: flex;
-    align-items: center;
     justify-content: space-between;
 }
 
 .rating_stars_container {
-
+    flex-shrink: 0;
+    margin-top: 18.72px;
 }
 
 .rating_stars {
@@ -253,4 +261,15 @@ td{
 
 #ecart{
     width: 20em;
+}
+
+@media screen and (max-width: 700px) {
+    
+    .description_preview > div:nth-child(1) {
+        flex-direction: column;
+    }
+
+    .rating_stars_container {
+        margin: 0;
+    }
 }
