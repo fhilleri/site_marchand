@@ -230,3 +230,27 @@ footer {
 .rating_stars {
     height: 20px;
 }
+
+#connexion{
+    text-align: center;
+    margin-top: 15em;
+}
+
+#table_connexion{
+    display: inline-table;
+    text-align: center;
+}
+
+input.case{
+    text-align: center;
+    background-color: #AAAAAA;
+    border-color: black;
+}
+
+td{
+    text-align: left;
+}
+
+#ecart{
+    width: 20em;
+}
