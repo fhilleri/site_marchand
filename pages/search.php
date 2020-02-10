@@ -1,5 +1,22 @@
 <?php
     $s=$_GET["s"];
+
+
+    try
+        {
+            // On se connecte à MySQL
+            $bdd = new PDO('mysql:host=localhost;dbname=site_marchand', 'root', 'root');
+            
+            $request = "SELECT article.id_article, article.nom_article, article.prix FROM article";
+            $answer = $bdd->prepare($request);
+            $answer->execute();
+        }
+        catch(Exception $e)
+        {
+            // En cas d'erreur, on affiche un message et on arrête tout
+            die('Erreur : '.$e->getMessage());
+        }
+
 ?>
 
 <!doctype html>
@@ -73,46 +90,36 @@
             <h1>Résultats pour la recherche "<?php echo $s ?>"</h1>
             
             <div id="result_box">
-                <div class="article">
-                    <div class="front_image_contener">
-                        <img class="front_image" src="../img/article/1/1.jpg"/>
-                    </div>
-                    <div class="description_preview">
-                        <div>
-                            <h3>Honor 7A</h3>
-                            <div class="rating_stars_container">
-                                <img class="rating_stars" src="../img/star.svg"/>
-                                <img class="rating_stars" src="../img/star.svg"/>
-                                <img class="rating_stars" src="../img/star.svg"/>
-                                <img class="rating_stars" src="../img/star.svg"/>
-                                <img class="rating_stars" src="../img/star.svg"/>
-                                (15 avis)
-                            </div>
-                        </div>
-                        <span>120€</span>
-                    </div>
-                </div>
-                <div class="article">
-                    <div class="front_image_contener">
-                        <img class="front_image" src="../img/article/2/1.jpg"/>
-                    </div>
-                    <div class="description_preview">
-                        <div>
-                            <h3>Huawei P Smart 2017 32Gb Noir Smartphone</h3>
-                            <div class="rating_stars_container">
-                                <img class="rating_stars" src="../img/star.svg"/>
-                                <img class="rating_stars" src="../img/star.svg"/>
-                                <img class="rating_stars" src="../img/star.svg"/>
-                                <img class="rating_stars" src="../img/star.svg"/>
-                                <img class="rating_stars" src="../img/star.svg"/>
-                                (15 avis)
-                            </div>
-                        </div>
-                        <span>120€</span>
-                    </div>
-                </div>
-            </div>
+            <?php
 
+                while ($row = $answer->fetch())
+                {
+                    ?>
+                        <div class="article">
+                            <div class="front_image_contener">
+                                <img class="front_image" src="../img/article/<?php echo $row["id_article"] ?>/0.jpg"/>
+                            </div>
+                            <div class="description_preview">
+                                <div>
+                                    <h3><a href="article.php?article=<?php echo $row["id_article"] ?>"><?php echo $row["nom_article"] ?></a></h3>
+                                    <div class="rating_stars_container">
+                                        <img class="rating_stars" src="../img/star.svg"/>
+                                        <img class="rating_stars" src="../img/star.svg"/>
+                                        <img class="rating_stars" src="../img/star.svg"/>
+                                        <img class="rating_stars" src="../img/star.svg"/>
+                                        <img class="rating_stars" src="../img/star.svg"/>
+                                        (15 avis)
+                                    </div>
+                                </div>
+                                <span><?php echo $row["prix"] . "€" ?></span>
+                            </div>
+                        </div>
+
+                    <?php
+                }
+                
+            ?>
+            </div>
         </main>
 
         <footer>

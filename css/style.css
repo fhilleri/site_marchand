@@ -230,6 +230,11 @@ footer {
     justify-content: space-between;
 }
 
+.description_preview h3 > a {
+    color: black;
+    text-decoration-line: none;
+}
+
 .rating_stars_container {
     flex-shrink: 0;
     margin-top: 18.72px;
