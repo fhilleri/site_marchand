@@ -103,12 +103,40 @@
                                 <div>
                                     <h3><a href="article.php?article=<?php echo $row["id_article"] ?>"><?php echo $row["nom_article"] ?></a></h3>
                                     <div class="rating_stars_container">
-                                        <img class="rating_stars" src="../img/star.svg"/>
-                                        <img class="rating_stars" src="../img/star.svg"/>
-                                        <img class="rating_stars" src="../img/star.svg"/>
-                                        <img class="rating_stars" src="../img/star.svg"/>
-                                        <img class="rating_stars" src="../img/star.svg"/>
-                                        (15 avis)
+                                        <?php
+
+                                            $request = "SELECT AVG(note_article.avis_article) as average, COUNT(*) as rateCount
+                                            FROM note_article 
+                                            WHERE note_article.id_article = :id_article
+                                            GROUP BY note_article.id_article";
+
+                                            $rateAnswer = $bdd->prepare($request);
+                                            $rateAnswer->bindValue("id_article", $row["id_article"]);
+                                            $rateAnswer->execute();
+
+                                            $starId = 0;
+                                            $rateCount = 0;
+                                            if ($rateAnswer->rowCount() == 0) $starId = -1;
+                                            else 
+                                            {
+                                                $elements = $rateAnswer->fetch();
+                                                $rate = $elements["average"];
+                                                $rateCount = $elements["rateCount"];
+                                            }
+
+                                            for ($i = 1; $i<6; $i++)
+                                            {
+                                                if ($starId != -1)
+                                                {
+                                                    if ($rate >= $i) $starId = 2;
+                                                    else if ($rate >= $i - 0.5) $starId = 1;
+                                                    else $starId = 0;
+                                                }
+
+                                                echo ('<img class="rating_stars" src="../img/stars/' . ($starId == -1 ? "null" : $starId) . '.svg"/>');
+                                            }
+                                            echo ("<span>($rateCount avis)</span>");
+                                        ?>
                                     </div>
                                 </div>
                                 <span><?php echo $row["prix"] . "€" ?></span>

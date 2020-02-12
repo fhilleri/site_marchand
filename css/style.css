@@ -238,6 +238,7 @@ footer {
 .rating_stars_container {
     flex-shrink: 0;
     margin-top: 18.72px;
+    display: flex;
 }
 
 .rating_stars {
