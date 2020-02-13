@@ -20,6 +20,7 @@ header {
     position: fixed;
     background-color: white;
     width: 100%;
+    z-index: 100;
 }
 
 #nav_bar {
@@ -162,7 +163,7 @@ header {
 }
 
 main {
-    padding: 50px 10px 200px;
+    padding: 50px 0px 200px;
 }
 
 footer {
@@ -195,6 +196,7 @@ footer {
 #result_box {
     display: flex;
     flex-direction: column;
+    width: 100%;
 }
 
 .article {
@@ -211,7 +213,7 @@ footer {
 
 .article .front_image_contener {
     height: 100%;
-    min-width: 200px;
+    width: 200px;
 }
 
 .front_image_contener > .front_image {
@@ -278,4 +280,36 @@ td{
     .rating_stars_container {
         margin: 0;
     }
+}
+
+#main_box {
+    display: flex;
+    flex-grow: 0;
+    flex-shrink: 0;
+}
+
+#filter_box_container {
+    width: 0px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    margin-right: 20px;
+    transition: width 1s;
+    flex-shrink: 0;
+    flex-grow: 0;
+}
+
+#filter_box {
+    width: 200px;
+    position: relative;
+    left: -200px;
+    transition: left 1s;
+    padding: 10px;
+}
+
+#filter_box_container.open {
+    width: 200px;
+}
+
+.open > #filter_box {
+    left: 0px;
 }
