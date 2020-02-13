@@ -13,6 +13,11 @@ body {
     min-height: 100%;;
 }
 
+.arrow_com {
+    height: 30px;
+    width: 30px;
+}
+
 header {
     padding: 10px;
     border-bottom-width: 1px;
