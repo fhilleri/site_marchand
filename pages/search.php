@@ -5,7 +5,7 @@
     try
         {
             // On se connecte à MySQL
-            $bdd = new PDO('mysql:host=localhost;dbname=site_marchand', 'root', 'root');
+            $bdd = new PDO('mysql:host=localhost;dbname=ppe - db - test1', 'root', '');
             
             $request = "SELECT article.id_article, article.nom_article, article.prix FROM article";
             $answer = $bdd->prepare($request);

@@ -9,6 +9,21 @@
         <script src="../js/side_nav.js"></script>
     </head>
 
+    <?php
+	//connexion à la base de données en PDO
+	try
+	{
+		// On se connecte à MySQL
+        $bdd = new PDO('mysql:host=localhost;dbname=ppe - db - test1', 'root', '');
+        $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+	}
+	catch(Exception $e)
+	{
+		// En cas d'erreur, on affiche un message et on arr�te tout
+        die('Erreur : '.$e->getMessage());
+    }
+    ?>
+
     <body>
         <header>
             <div id="nav_bar">
@@ -67,7 +82,84 @@
 
         <main>
             <h1>Contenu</h1>
-            <div style="width: 100%; height: 1500px; background-color: blue;"></div>
+            <!-- Première div article -->
+            <div>
+            <?php $categorie1 = "Ordinateurs"; ?>
+                <p> <?php echo $categorie1 ?></p>
+                <div id="flex1accueil">
+                <?php
+                $req = $bdd->query("select article.* from article where nom_categorie='".$categorie1."'");
+                while($ligne = $req->fetch()){
+                ?>
+                    <div>
+                    <img src=<?php echo "../img/article/".$ligne["id_article"]."/0.jpg"?>>
+                    <p><?php echo $ligne["nom_article"] ?></p>
+                    </div>
+                <?php
+
+                }
+
+
+                ?>
+                </div>
+            </div>
+            <div>
+            <?php $categorie2 = "Smartphones"; ?>
+                <p> <?php echo $categorie2 ?></p>
+                <div id="flex2accueil">
+                <?php
+                $req = $bdd->query("select article.* from article where nom_categorie='".$categorie2."'");
+                while($ligne = $req->fetch()){
+                ?>
+                    <div>
+                    <img src=<?php echo "../img/article/".$ligne["id_article"]."/0.jpg"?>>
+                    <p><?php echo $ligne["nom_article"] ?></p>
+                    </div>
+                <?php
+
+                }
+
+
+                ?>
+            </div>
+            <div>
+            <?php $categorie3 = "Ordinateurs"; ?>
+                <p> <?php echo $categorie3 ?></p>
+                <div id="flex3accueil">
+                <?php
+                $req = $bdd->query("select article.* from article where nom_categorie='".$categorie3."'");
+                while($ligne = $req->fetch()){
+                ?>
+                    <div>
+                    <img src=<?php echo "../img/article/".$ligne["id_article"]."/0.jpg"?>>
+                    <p><?php echo $ligne["nom_article"] ?></p>
+                    </div>
+                <?php
+
+                }
+
+
+                ?>
+            </div>
+            <div>
+            <?php $categorie4 = "Ordinateurs"; ?>
+                <p> <?php echo $categorie4 ?></p>
+                <div id="flex4accueil">
+                <?php
+                $req = $bdd->query("select article.* from article where nom_categorie='".$categorie4."'");
+                while($ligne = $req->fetch()){
+                ?>
+                    <div>
+                    <img src=<?php echo "../img/article/".$ligne["id_article"]."/0.jpg"?>>
+                    <p><?php echo $ligne["nom_article"] ?></p>
+                    </div>
+                <?php
+
+                }
+
+
+                ?>
+            </div>
         </main>
 
         <footer>
