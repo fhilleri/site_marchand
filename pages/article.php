@@ -21,7 +21,7 @@
 		// En cas d'erreur, on affiche un message et on arr�te tout
         die('Erreur : '.$e->getMessage());
     }
-    $reponse = $bdd->query('select * from article where id_article=1');
+    $reponse = $bdd->query('select * from article where id_article='.$_GET["article"]);
     $ligne = $reponse->fetch();
     ?>	
 
@@ -158,7 +158,7 @@
                             ?>
                         </p>
                     </div>
-
+                    
                     <div class="commentaire_flex2">
                         <p class="valeur_commentaire">
                             <?php
@@ -166,6 +166,7 @@
                             ?>
                         </p>
                     </div>
+
                 </div>
                 <?php
                 }
