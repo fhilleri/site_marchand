@@ -1,23 +1,23 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="fr">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Site marchand</title>
+        <title>Page de connexion</title>
         <link rel="stylesheet" href="../css/style.css">
         <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet"> 
         <script src="../js/side_nav.js"></script>
     </head>
-
+    <head>
     <body>
-        <header>
+    <header>
             <div id="nav_bar">
                 <img id="side_nav_button" onclick="openSideNav()" src="../img/menu.png">
                 <a href="">
                     <img src="../img/logo.png" id="logo">
                 </a>
-                <form action="search.php" method="get">
-                    <input type="text" name="s">
+                <form>
+                    <input type="text" name="search">
                 </form>
 
                 <?php if (false)
@@ -66,12 +66,35 @@
         </div>
 
         <main>
-            <h1>Contenu</h1>
-            <div style="width: 100%; height: 1500px; background-color: blue;"></div>
+            <div id="connexion">
+                <h4>Connexion</h4></br>
+                <table id="table_connexion">
+                    <tr>
+                        <td><label id="email">Email :</label></td>
+                        <td><input id="ecart" type="email" name="email"></td>
+                    </tr>
+                    <tr>
+                        <td><label>Mot de passe :</label></td>
+                        <td><input type="password" name="mdp"></td></br>
+                    </tr>
+                    <tr>
+                        <td></td><td><input type="checkbox" name="souvenir">Se souvenir de moi</td></br>
+                    </tr>
+                </table>
+                <div>
+                    <input class="case" type="submit" value="Se connecter">
+                    <input class="case" type="submit" value="S'inscrire">
+                </div>
+                    
+                
+                
+            </div>
         </main>
 
         <footer>
             <div style="width: 100%; height: 200px; background-color: red;"></div>
         </footer>
+
+
     </body>
 </html>
