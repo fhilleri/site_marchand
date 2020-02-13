@@ -5,9 +5,10 @@
     try
         {
             // On se connecte à MySQL
-            $bdd = new PDO('mysql:host=localhost;dbname=site_marchand', 'root', 'root');
+            $bdd = new PDO('mysql:host=localhost;dbname=itake', 'root', 'root');
             
-            $request = "SELECT article.id_article, article.nom_article, article.prix FROM article";
+            $request = "SELECT article.id_article, article.nom_article, article.prix FROM article
+            WHERE article.nom_article LIKE '%$s%'";
             $answer = $bdd->prepare($request);
             $answer->execute();
         }
@@ -28,6 +29,7 @@
         <link rel="stylesheet" href="../css/style.css">
         <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet"> 
         <script src="../js/side_nav.js"></script>
+        <script src="../js/filter_box.js"></script>
     </head>
 
     <body>
@@ -87,71 +89,82 @@
         </div>
 
         <main>
-            <h1>Résultats pour la recherche "<?php echo $s ?>"</h1>
-            
-            <div id="result_box">
-            <?php
-
-                while ($row = $answer->fetch())
-                {
-                    ?>
-                        <div class="article">
-                            <div class="front_image_contener">
-                                <img class="front_image" src="../img/article/<?php echo $row["id_article"] ?>/0.jpg"/>
-                            </div>
-                            <div class="description_preview">
-                                <div>
-                                    <h3><a href="article.php?article=<?php echo $row["id_article"] ?>"><?php echo $row["nom_article"] ?></a></h3>
-                                    <div class="rating_stars_container">
-                                        <?php
-
-                                            $request = "SELECT AVG(note_article.avis_article) as average, COUNT(*) as rateCount
-                                            FROM note_article 
-                                            WHERE note_article.id_article = :id_article
-                                            GROUP BY note_article.id_article";
-
-                                            $rateAnswer = $bdd->prepare($request);
-                                            $rateAnswer->bindValue("id_article", $row["id_article"]);
-                                            $rateAnswer->execute();
-
-                                            $starId = 0;
-                                            $rateCount = 0;
-                                            if ($rateAnswer->rowCount() == 0) $starId = -1;
-                                            else 
-                                            {
-                                                $elements = $rateAnswer->fetch();
-                                                $rate = $elements["average"];
-                                                $rateCount = $elements["rateCount"];
-                                            }
-
-                                            for ($i = 1; $i<6; $i++)
-                                            {
-                                                if ($starId != -1)
-                                                {
-                                                    if ($rate >= $i) $starId = 2;
-                                                    else if ($rate >= $i - 0.5) $starId = 1;
-                                                    else $starId = 0;
-                                                }
-
-                                                echo ('<img class="rating_stars" src="../img/stars/' . ($starId == -1 ? "null" : $starId) . '.svg"/>');
-                                            }
-                                            echo ("<span>($rateCount avis)</span>");
-                                        ?>
-                                    </div>
-                                </div>
-                                <span><?php echo $row["prix"] . "€" ?></span>
-                            </div>
-                        </div>
-
-                    <?php
-                }
+            <div id="main_box">
                 
-            ?>
+                <div id="filter_box_container">
+                    <div id="filter_box">
+                        
+                        <h3>Filtres</h3>
+                        
+                    </div>
+                </div>
+                
+                <div id="result_box">
+                    <button onclick="switchFilterBox();">Filtres</button>
+                    <h1>Résultats pour la recherche "<?php echo $s ?>"</h1>
+                <?php
+    
+                    while ($row = $answer->fetch())
+                    {
+                        ?>
+                            <div class="article">
+                                <div class="front_image_contener">
+                                    <img class="front_image" src="../img/article/<?php echo $row["id_article"] ?>/0.jpg"/>
+                                </div>
+                                <div class="description_preview">
+                                    <div>
+                                        <h3><a href="article.php?article=<?php echo $row["id_article"] ?>"><?php echo $row["nom_article"] ?></a></h3>
+                                        <div class="rating_stars_container">
+                                            <?php
+    
+                                                $request = "SELECT AVG(note_article.avis_article) as average, COUNT(*) as rateCount
+                                                FROM note_article 
+                                                WHERE note_article.id_article = :id_article
+                                                GROUP BY note_article.id_article";
+    
+                                                $rateAnswer = $bdd->prepare($request);
+                                                $rateAnswer->bindValue("id_article", $row["id_article"]);
+                                                $rateAnswer->execute();
+    
+                                                $starId = 0;
+                                                $rateCount = 0;
+                                                if ($rateAnswer->rowCount() == 0) $starId = -1;
+                                                else 
+                                                {
+                                                    $elements = $rateAnswer->fetch();
+                                                    $rate = $elements["average"];
+                                                    $rateCount = $elements["rateCount"];
+                                                }
+    
+                                                for ($i = 1; $i<6; $i++)
+                                                {
+                                                    if ($starId != -1)
+                                                    {
+                                                        if ($rate >= $i) $starId = 2;
+                                                        else if ($rate >= $i - 0.5) $starId = 1;
+                                                        else $starId = 0;
+                                                    }
+    
+                                                    echo ('<img class="rating_stars" src="../img/stars/' . ($starId == -1 ? "null" : $starId) . '.svg"/>');
+                                                }
+                                                echo ("<span>($rateCount avis)</span>");
+                                            ?>
+                                        </div>
+                                    </div>
+                                    <span><?php echo $row["prix"] . "€" ?></span>
+                                </div>
+                            </div>
+    
+                        <?php
+                    }
+                    
+                ?>
+                </div>
             </div>
         </main>
 
         <footer>
-            <div style="width: 100%; height: 200px; background-color: red;"></div>
+            <div style="width: 100%; height: 200px;"></div>
         </footer>
     </body>
 </html>

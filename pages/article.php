@@ -14,14 +14,14 @@
 	try
 	{
 		// On se connecte à MySQL
-		$bdd = new PDO('mysql:host=localhost;dbname=ppe - db - test1', 'root', '');
+		$bdd = new PDO('mysql:host=localhost;dbname=itake', 'root', 'root');
 	}
 	catch(Exception $e)
 	{
-		// En cas d'erreur, on affiche un message et on arr�te tout
+		// En cas d'erreur, on affiche un message et on arrête tout
         die('Erreur : '.$e->getMessage());
     }
-    $reponse = $bdd->query('select * from article where id_article=1');
+    $reponse = $bdd->query('select * from article where id_article=' . $_GET["article"]);
     $ligne = $reponse->fetch();
     ?>	
 
@@ -91,7 +91,7 @@
                 <div id="flexarticle">
                     
                     <div class="img_article">
-                    <img class="img_article" src="../img/article/1/1.jfif">
+                    <img class="img_article" src="../img/article/<?php echo $ligne["id_article"] ?>/0.jpg">
                     </div>
                     <div>
                     <p id="nomarticle"> 
