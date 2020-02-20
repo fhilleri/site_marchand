@@ -84,6 +84,12 @@
             <h1>Contenu</h1>
             <!-- Première div article -->
             <div>
+            <?php 
+                if($test = $bdd->query("select * from admin where '/username/'="./username/."") == "/username/"){
+                    //Affichage possibilité modificaition
+                }
+            
+            ?>
             <?php $categorie1 = "Ordinateurs"; ?>
                 <p> <?php echo $categorie1 ?></p>
                 <div id="flex1accueil">
@@ -104,6 +110,12 @@
                 </div>
             </div>
             <div>
+            <?php 
+                if($test = $bdd->query("select * from admin where '/username/'="./username/."") == "/username/"){
+                    //Affichage possibilité modificaition
+                }
+            
+            ?>
             <?php $categorie2 = "Smartphones"; ?>
                 <p> <?php echo $categorie2 ?></p>
                 <div id="flex2accueil">
@@ -123,6 +135,12 @@
                 ?>
             </div>
             <div>
+            <?php 
+                if($test = $bdd->query("select * from admin where '/username/'="./username/."") == "/username/"){
+                    //Affichage possibilité modificaition
+                }
+            
+            ?>
             <?php $categorie3 = "Ordinateurs"; ?>
                 <p> <?php echo $categorie3 ?></p>
                 <div id="flex3accueil">
@@ -142,6 +160,12 @@
                 ?>
             </div>
             <div>
+            <?php 
+                if($test = $bdd->query("select * from admin where '/username/'="./username/."") == "/username/"){
+                    //Affichage possibilité modificaition
+                }
+            
+            ?>
             <?php $categorie4 = "Ordinateurs"; ?>
                 <p> <?php echo $categorie4 ?></p>
                 <div id="flex4accueil">
