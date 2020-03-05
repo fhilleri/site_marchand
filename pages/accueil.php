@@ -24,6 +24,17 @@
     }
     ?>
 
+    <?php
+    $i = 1;
+    $cat = $bdd->query("select nom_categorie from categorie");
+    while($ligne = $cat->fetch()){
+        $categorie[$i] = $ligne[0];
+        $i += 1;
+
+    }
+
+    ?>
+
     <body>
         <header>
             <div id="nav_bar">
@@ -84,17 +95,11 @@
             <h1>Contenu</h1>
             <!-- Première div article -->
             <div>
-            <?php 
-                if($test = $bdd->query("select * from admin where '/username/'="./username/."") == "/username/"){
-                    //Affichage possibilité modificaition
-                }
-            
-            ?>
-            <?php $categorie1 = "Ordinateurs"; ?>
-                <p> <?php echo $categorie1 ?></p>
+
+                <p> <?php echo $categorie['1'] ?></p>
                 <div id="flex1accueil">
                 <?php
-                $req = $bdd->query("select article.* from article where nom_categorie='".$categorie1."'");
+                $req = $bdd->query("select article.* from article where nom_categorie='".$categorie['1']."'");
                 while($ligne = $req->fetch()){
                 ?>
                     <div>
@@ -110,17 +115,11 @@
                 </div>
             </div>
             <div>
-            <?php 
-                if($test = $bdd->query("select * from admin where '/username/'="./username/."") == "/username/"){
-                    //Affichage possibilité modificaition
-                }
             
-            ?>
-            <?php $categorie2 = "Smartphones"; ?>
-                <p> <?php echo $categorie2 ?></p>
+                <p> <?php echo $categorie['2'] ?></p>
                 <div id="flex2accueil">
                 <?php
-                $req = $bdd->query("select article.* from article where nom_categorie='".$categorie2."'");
+                $req = $bdd->query("select article.* from article where nom_categorie='".$categorie['2']."'");
                 while($ligne = $req->fetch()){
                 ?>
                     <div>
@@ -135,17 +134,11 @@
                 ?>
             </div>
             <div>
-            <?php 
-                if($test = $bdd->query("select * from admin where '/username/'="./username/."") == "/username/"){
-                    //Affichage possibilité modificaition
-                }
             
-            ?>
-            <?php $categorie3 = "Ordinateurs"; ?>
-                <p> <?php echo $categorie3 ?></p>
+                <p> <?php echo $categorie['3'] ?></p>
                 <div id="flex3accueil">
                 <?php
-                $req = $bdd->query("select article.* from article where nom_categorie='".$categorie3."'");
+                $req = $bdd->query("select article.* from article where nom_categorie='".$categorie['3']."'");
                 while($ligne = $req->fetch()){
                 ?>
                     <div>
@@ -160,17 +153,11 @@
                 ?>
             </div>
             <div>
-            <?php 
-                if($test = $bdd->query("select * from admin where '/username/'="./username/."") == "/username/"){
-                    //Affichage possibilité modificaition
-                }
             
-            ?>
-            <?php $categorie4 = "Ordinateurs"; ?>
-                <p> <?php echo $categorie4 ?></p>
+                <p> <?php echo $categorie['4'] ?></p>
                 <div id="flex4accueil">
                 <?php
-                $req = $bdd->query("select article.* from article where nom_categorie='".$categorie4."'");
+                $req = $bdd->query("select article.* from article where nom_categorie='".$categorie['4']."'");
                 while($ligne = $req->fetch()){
                 ?>
                     <div>
