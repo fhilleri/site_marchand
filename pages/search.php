@@ -1,22 +1,51 @@
 <?php
-    $s=$_GET["s"];
+    
+    if (isset($_GET["s"])) $s=$_GET["s"];
+    else $s = "";
 
+    if (isset($_GET["categories"])) $categories = $_GET["categories"];
+    else $categories = ["all"];
+
+    if (isset($_GET["stocks"])) $stock = $_GET["stocks"];
+    else $stock = ["en_stock", "en_rupture_de_stock"];
 
     try
+    {
+        // On se connecte à MySQL
+        $bdd = new PDO('mysql:host=localhost;dbname=itake', 'root', 'root');
+        $bdd->query("SET NAMES UTF8");
+        
+        $request = "SELECT article.id_article, article.nom_article, article.prix FROM article
+        WHERE article.nom_article LIKE '%$s%'";
+        
+        if (in_array("not_empty", $categories))
         {
-            // On se connecte à MySQL
-            $bdd = new PDO('mysql:host=localhost;dbname=itake', 'root', 'root');
-            
-            $request = "SELECT article.id_article, article.nom_article, article.prix FROM article
-            WHERE article.nom_article LIKE '%$s%'";
-            $answer = $bdd->prepare($request);
-            $answer->execute();
+            $request = $request . " AND article.nom_categorie IN (";
+            foreach ($_GET["categories"] as $key => $value) {
+                $request = $request . ($key == 0 ? "" : ",") . '"' . $value . '"';
+            }      
+            $request = $request . ")";
         }
-        catch(Exception $e)
-        {
-            // En cas d'erreur, on affiche un message et on arrête tout
-            die('Erreur : '.$e->getMessage());
-        }
+
+        if (!in_array("en_stock", $stock)) $request = $request . " AND article.stock = 0";
+        if (!in_array("en_rupture_de_stock", $stock)) $request = $request . " AND article.stock > 0";
+        
+        echo $request;
+
+        $answer = $bdd->prepare($request);
+        $answer->execute();
+
+        $requestCountCategories = "SELECT nom_categorie, COUNT(*) as compte
+        FROM article
+        GROUP BY nom_categorie";
+        $answerCountCategories = $bdd->prepare($requestCountCategories);
+        $answerCountCategories->execute();
+    }
+    catch(Exception $e)
+    {
+        // En cas d'erreur, on affiche un message et on arrête tout
+        die('Erreur : '.$e->getMessage());
+    }
 
 ?>
 
@@ -92,18 +121,78 @@
             <div id="main_box">
                 
                 <div id="filter_box_container">
-                    <div id="filter_box">
-                        
-                        <h3>Filtres</h3>
-                        
-                    </div>
+                    <form id="filter_box">
+                        <input type="hidden" name="s" value="<?php echo $s ?>">
+                        <h2>Filtres</h2>
+
+                        <input type="submit"/>
+
+                        <div class="filter">
+
+                            <div class="filter_header" onclick="switchFilterOption(this);">
+                                <img src="../img/arrow.svg"/>
+                                <h3>Catégories</h3>
+                            </div>
+
+                            <div class="filter_options">
+                                <input type="hidden" name="categories[]" value="not_empty"/>
+                                <?php
+                                    while ($row = $answerCountCategories->fetch()) {
+                                        ?>
+                                        <div>
+                                            <input type="checkbox" name="categories[]" value="<?php echo $row["nom_categorie"]?>" <?php if (in_array($row["nom_categorie"], $categories) || in_array("all", $categories)) echo " checked "; ?> >
+                                            <label><?php echo $row["nom_categorie"] . " (" . $row["compte"] . ")"?></label>
+                                        </div>
+                                        <?php
+                                    }
+                                ?>
+                            </div>
+                        </div>
+
+                        <div class="filter">
+
+                            <div class="filter_header" onclick="switchFilterOption(this);">
+                                <img src="../img/arrow.svg"/>
+                                <h3>Stocks</h3>
+                            </div>
+
+                            <div class="filter_options">
+                                <input type="hidden" name="stocks[]" value="not_empty"/>
+                                <div>
+                                    <input type="checkbox" name="stocks[]" value="en_stock" <?php if (in_array("en_stock", $stock)) echo " checked" ?> requied>
+                                    <label>En stock</label>
+                                </div>
+                                <div>
+                                    <input type="checkbox" name="stocks[]" value="en_rupture_de_stock" <?php if (in_array("en_rupture_de_stock", $stock)) echo " checked" ?>>
+                                    <label>En rupture de stock</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="filter">
+
+                            <div class="filter_header" onclick="switchFilterOption(this);">
+                                <img src="../img/arrow.svg"/>
+                                <h3>Prix</h3>
+                            </div>
+
+                            <div class="filter_options">
+                                <div>
+                                    <label style="float:left">Minimum :</label>
+                                    <input style="width:80px; float:right" type="number" name="prix_min" value="0" min="0"/>
+                                    <label style="float:left">Maximum :</label>
+                                    <input style="width:80px; float:right" type="number" name="prix_max" value="0" min="0"/>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
                 </div>
                 
                 <div id="result_box">
                     <button onclick="switchFilterBox();">Filtres</button>
                     <h1>Résultats pour la recherche "<?php echo $s ?>"</h1>
                 <?php
-    
+
                     while ($row = $answer->fetch())
                     {
                         ?>

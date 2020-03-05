@@ -79,6 +79,7 @@ header {
     height: 100% ;
     top: 0;
     visibility: hidden;
+    z-index: 500;
 }
 
 #side_nav {
@@ -197,6 +198,7 @@ footer {
     display: flex;
     flex-direction: column;
     width: 100%;
+    margin: 0 20px 0;
 }
 
 .article {
@@ -214,6 +216,7 @@ footer {
 .article .front_image_contener {
     height: 100%;
     width: 200px;
+    flex-shrink: 0;
 }
 
 .front_image_contener > .front_image {
@@ -292,7 +295,6 @@ td{
     width: 0px;
     overflow: hidden;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    margin-right: 20px;
     transition: width 1s;
     flex-shrink: 0;
     flex-grow: 0;
@@ -312,4 +314,31 @@ td{
 
 .open > #filter_box {
     left: 0px;
+}
+
+.filter {
+    display: block;
+    width: 100%;
+}
+
+.filter_header {
+    cursor: pointer;
+}
+
+.filter_header > img, .filter_header > h3{
+    display: inline;
+}
+
+.filter_header > img {
+    height: 10px;
+}
+
+.filter_options {
+    max-height: 0px;
+    overflow: hidden;
+    transition: max-height 0.2s;
+}
+
+.filter_option .open {
+    max-height: initial;
 }

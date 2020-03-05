@@ -9,6 +9,21 @@
         <script src="../js/side_nav.js"></script>
     </head>
 
+    <?php
+	//connexion à la base de données en PDO
+	try
+	{
+		// On se connecte à MySQL
+        $bdd = new PDO('mysql:host=localhost;dbname=itake', 'root', 'root');
+        $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+	}
+	catch(Exception $e)
+	{
+		// En cas d'erreur, on affiche un message et on arr�te tout
+        die('Erreur : '.$e->getMessage());
+    }
+    ?>
+
     <body>
         <header>
             <div id="nav_bar">
