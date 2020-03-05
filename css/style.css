@@ -252,9 +252,26 @@ footer {
     margin-top: 15em;
 }
 
+#contact{
+    text-align: center;
+}
+
 #table_connexion{
     display: inline-table;
     text-align: center;
+}
+
+#table_contact{
+    float: right;
+    margin-right: 8em;
+    text-align: left;
+    display: inline-table;
+    
+}
+
+#adresse{
+    float: left;
+    margin-left: 8em;
 }
 
 input.case{
