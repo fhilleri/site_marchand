@@ -82,7 +82,7 @@
         </div>
 
         <main>
-        <!-- -->
+        
         <!-- affichage de l'article -->
         <h1>Page <?php echo $ligne["nom_article"]?></h1>
         

@@ -22,13 +22,25 @@
 		// En cas d'erreur, on affiche un message et on arr�te tout
         die('Erreur : '.$e->getMessage());
     }
+    $bdd->query("SET NAMES UTF8");
+    ?>
+
+    <?php
+    $i = 1;
+    $cat = $bdd->query("select nom_categorie from CATEGORIE");
+    while($ligne = $cat->fetch()){
+        $categorie[$i] = $ligne[0];
+        $i += 1;
+
+    }
+
     ?>
 
     <body>
         <header>
             <div id="nav_bar">
                 <img id="side_nav_button" onclick="openSideNav()" src="../img/menu.png">
-                <a href="">
+                <a href="http://gr03.sio-cholet.fr">
                     <img src="../img/logo.png" id="logo">
                 </a>
                 <form action="search.php" method="get">
@@ -84,16 +96,19 @@
             <h1>Contenu</h1>
             <!-- Première div article -->
             <div>
-            <?php $categorie1 = "Ordinateurs"; ?>
-                <p> <?php echo $categorie1 ?></p>
+
+                <p> <?php echo $categorie['1'] ?></p>
                 <div id="flex1accueil">
                 <?php
-                $req = $bdd->query("select article.* from article where nom_categorie='".$categorie1."'");
+                $req = $bdd->query("select ARTICLE.* from ARTICLE where nom_categorie='".$categorie['1']."'");
                 while($ligne = $req->fetch()){
                 ?>
                     <div>
+                    <a href=<?php echo "http://gr03.sio-cholet.fr/article.php?article=".$ligne['id_article'].""?>>
                     <img src=<?php echo "../img/article/".$ligne["id_article"]."/0.jpg"?>>
-                    <p><?php echo $ligne["nom_article"] ?></p>
+                    </a>
+                    <p><?php echo $ligne["nom_article"];
+                    echo $ligne['prix']?></p>
                     </div>
                 <?php
 
@@ -104,15 +119,17 @@
                 </div>
             </div>
             <div>
-            <?php $categorie2 = "Smartphones"; ?>
-                <p> <?php echo $categorie2 ?></p>
+            
+                <p> <?php echo $categorie['2'] ?></p>
                 <div id="flex2accueil">
                 <?php
-                $req = $bdd->query("select article.* from article where nom_categorie='".$categorie2."'");
+                $req = $bdd->query("select ARTICLE.* from ARTICLE where nom_categorie='".$categorie['2']."'");
                 while($ligne = $req->fetch()){
                 ?>
                     <div>
-                    <img src=<?php echo "../img/article/".$ligne["id_article"]."/0.jpg"?>>
+                    <a href=<?php echo "http://gr03.sio-cholet.fr/article.php?article=".$ligne['id_article'].""?>>
+                                        <img src=<?php echo "../img/article/".$ligne["id_article"]."/0.jpg"?>>
+                    </a>
                     <p><?php echo $ligne["nom_article"] ?></p>
                     </div>
                 <?php
@@ -123,15 +140,17 @@
                 ?>
             </div>
             <div>
-            <?php $categorie3 = "Ordinateurs"; ?>
-                <p> <?php echo $categorie3 ?></p>
+            
+                <p> <?php echo $categorie['3'] ?></p>
                 <div id="flex3accueil">
                 <?php
-                $req = $bdd->query("select article.* from article where nom_categorie='".$categorie3."'");
+                $req = $bdd->query("select ARTICLE.* from ARTICLE where nom_categorie='".$categorie['3']."'");
                 while($ligne = $req->fetch()){
                 ?>
                     <div>
+                    <a href=<?php echo "http://gr03.sio-cholet.fr/article.php?article=".$ligne['id_article'].""?>>
                     <img src=<?php echo "../img/article/".$ligne["id_article"]."/0.jpg"?>>
+                    </a>
                     <p><?php echo $ligne["nom_article"] ?></p>
                     </div>
                 <?php
@@ -142,15 +161,17 @@
                 ?>
             </div>
             <div>
-            <?php $categorie4 = "Ordinateurs"; ?>
-                <p> <?php echo $categorie4 ?></p>
+            
+                <p> <?php echo $categorie['4'] ?></p>
                 <div id="flex4accueil">
                 <?php
-                $req = $bdd->query("select article.* from article where nom_categorie='".$categorie4."'");
+                $req = $bdd->query("select ARTICLE.* from ARTICLE where nom_categorie='".$categorie['4']."'");
                 while($ligne = $req->fetch()){
                 ?>
                     <div>
+                    <a href=<?php echo "http://gr03.sio-cholet.fr/article.php?article=".$ligne['id_article'].""?>>
                     <img src=<?php echo "../img/article/".$ligne["id_article"]."/0.jpg"?>>
+                    </a>
                     <p><?php echo $ligne["nom_article"] ?></p>
                     </div>
                 <?php
