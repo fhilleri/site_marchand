@@ -18,3 +18,13 @@ function switchFilterBox()
     if (cont.classList.contains("open")) closeFilterBox();
     else openFilterBox();
 }
+
+function switchFilterOption(element)
+{
+    var filterOption = element.parentNode.querySelector(".filter_options");
+    if (filterOption.style.maxHeight && filterOption.style.maxHeight != "0px")
+    {
+        filterOption.style.maxHeight = "0px";
+    }
+    else filterOption.style.maxHeight = filterOption.scrollHeight + "px";
+}
