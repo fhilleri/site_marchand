@@ -12,7 +12,16 @@
     try
     {
         // On se connecte à MySQL
-        $bdd = new PDO('mysql:host=localhost;dbname=itake', 'root', 'root');
+        if ($_SERVER['SERVER_NAME'] == 'localhost')
+        {
+            $bdd = new PDO('mysql:host=localhost;dbname=itake;charset=utf8', 'root', 'root');
+            $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        }
+        else
+        {
+            $bdd = new PDO('mysql:host=db672809222.db.1and1.com; dbname=db672809222;charset=utf8', 'dbo672809222', 'BMw1234*');
+            $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        }
         $bdd->query("SET NAMES UTF8");
         
         $request = "SELECT article.id_article, article.nom_article, article.prix FROM article
@@ -120,7 +129,7 @@
         <main>
             <div id="main_box">
                 
-                <div id="filter_box_container">
+                <div id="filter_box_container" class="open">
                     <form id="filter_box">
                         <input type="hidden" name="s" value="<?php echo $s ?>">
                         <h2>Filtres</h2>
