@@ -3,10 +3,11 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Site marchand</title>
+        <title>Site marchand - Panier</title>
         <link rel="stylesheet" href="../css/style.css">
         <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet"> 
         <script src="../js/side_nav.js"></script>
+        <script src="../js/suppression_panier.js"></script>
     </head>
 
     <?php
@@ -34,10 +35,15 @@
     ?>
 
     <?php
+    $_SESSION['identifiant'] = "User";
+    if(isset($_GET['idsup'])){
+        $delreq = $bdd->query("delete from panier where panier.id_article='".$_GET['idsup']."' and panier.identifiant='".$_SESSION['identifiant']."'");
+        $_GET['idsup'] = null;
+    }
     $i = 1;
-    $cat = $bdd->query("select nom_categorie from categorie");
+    $cat = $bdd->query("select id_article from panier where panier.identifiant='".$_SESSION['identifiant']."'");
     while($ligne = $cat->fetch()){
-        $categorie[$i] = $ligne[0];
+        $panier[$i] = $ligne[0];
         $i += 1;
 
     }
@@ -101,32 +107,39 @@
         </div>
 
         <main>
-            <h1>Contenu</h1>
-            <!-- Boucle div article -->
+            <h1>Contenu du panier</h1>
+            <!-- Boucle div article de panier -->
             <?php
-
-            foreach ($categorie as $value) {
-            ?>
-            <div>
-
-                <p> <?php echo $value ?></p>
-                <div class="flexaccueil">
-                <?php
-                $req = $bdd->query("select article.* from article where nom_categorie='".$value."'");
-                while($ligne = $req->fetch()){
+            if(isset($panier) && sizeof($panier) >= 1){
+                foreach ($panier as $value) {
                 ?>
-                    <div>
-                    <a href=<?php echo "article.php?article=".$ligne['id_article'].""?>>
-                    <img src=<?php echo "../img/article/".$ligne["id_article"]."/0.jpg"?>>
-                    </a>
-                    <p><?php echo $ligne["nom_article"];
-                    echo $ligne['prix']?></p>
-                    </div>
+                <div>
+
+                    <div class="flexaccueil">
+                    <?php
+                    $req = $bdd->query("select article.* from article where article.id_article='".$value."'");
+                    while($ligne = $req->fetch()){
+                    ?>
+                        <div>
+                        <a href=<?php echo "article.php?article=".$ligne['id_article'].""?>>
+                        <img src=<?php echo "../img/article/".$ligne["id_article"]."/0.jpg"?>>
+                        </a>
+                        <p><?php echo $ligne["nom_article"];
+                        echo $ligne['prix']?></p>
+                        <form method="get">
+                        <input type="hidden" name="idsup" value=<?php echo "".$ligne['id_article'].""?>>
+                        <button class="supart" type="submit"><img class="supart" src="../img/uncheck.svg"></button>
+                        </form>
+                        </div>
+                    <?php
+                    }
+                    ?>
+                </div>
                 <?php
                 }
-                ?>
-            </div>
-            <?php
+            }
+            else {
+                echo "Panier vide";
             }
             ?>
         </main>

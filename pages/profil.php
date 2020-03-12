@@ -101,34 +101,6 @@
         </div>
 
         <main>
-            <h1>Contenu</h1>
-            <!-- Boucle div article -->
-            <?php
-
-            foreach ($categorie as $value) {
-            ?>
-            <div>
-
-                <p> <?php echo $value ?></p>
-                <div class="flexaccueil">
-                <?php
-                $req = $bdd->query("select article.* from article where nom_categorie='".$value."'");
-                while($ligne = $req->fetch()){
-                ?>
-                    <div>
-                    <a href=<?php echo "article.php?article=".$ligne['id_article'].""?>>
-                    <img src=<?php echo "../img/article/".$ligne["id_article"]."/0.jpg"?>>
-                    </a>
-                    <p><?php echo $ligne["nom_article"];
-                    echo $ligne['prix']?></p>
-                    </div>
-                <?php
-                }
-                ?>
-            </div>
-            <?php
-            }
-            ?>
         </main>
 
         <footer>
