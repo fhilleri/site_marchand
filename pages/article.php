@@ -41,7 +41,7 @@
                 <a href="">
                     <img src="../img/logo.png" id="logo">
                 </a>
-                <form>
+                <form action="search.php" method="get">
                     <input type="text" name="search">
                 </form>
 
