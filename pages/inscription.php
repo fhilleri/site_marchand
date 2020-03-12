@@ -1,3 +1,58 @@
+<?php
+    session_start();
+
+    //connexion à la base de données en PDO
+    try
+    {
+        if ($_SERVER['SERVER_NAME'] == 'localhost')
+        {
+            $bdd = new PDO('mysql:host=localhost;dbname=itake;charset=utf8', 'root', 'root');
+            $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        }
+        else
+        {
+            $bdd = new PDO('mysql:host=db672809222.db.1and1.com; dbname=db672809222;charset=utf8', 'dbo672809222', 'BMw1234*');
+            $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        }
+    }
+    catch(Exception $e)
+    {
+        // En cas d'erreur, on affiche un message et on arrête tout
+        die('Erreur : '.$e->getMessage());
+    }
+
+    if (isset($_POST["identifiant"]) &&
+        isset($_POST["email"]) &&
+        isset($_POST["mdp"]))
+    {
+        $utilisateurs = $bdd->prepare("SELECT comptes.identifiant
+        FROM comptes
+        WHERE comptes.identifiant = :id");
+        $utilisateurs->bindValue(':id', $_POST["identifiant"]);
+        $utilisateurs->execute();
+        if ($utilisateurs->rowCount() != 0)
+        {
+            $erreur_inscription = "Cet identifiant est déjà attribué !";
+        }
+        else
+        {
+            $new_compte = $bdd->prepare("INSERT INTO `comptes` (`identifiant`, `mot_de_passe`) VALUES (:id, :mdp);");
+            $new_compte->bindValue(':id', $_POST["identifiant"]);
+            $new_compte->bindValue(':mdp', $_POST["mdp"]);
+            $new_compte->execute();
+            
+            $new_compte = $bdd->prepare("INSERT INTO `utilisateur` (`identifiant`, `point_de_fidelite`, `email`) VALUES (:id, 0, :email);");
+            $new_compte->bindValue(':id', $_POST["identifiant"]);
+            $new_compte->bindValue(':email', $_POST["email"]);
+            $new_compte->execute();
+
+            $_SESSION["identifiant"] = $_POST["identifiant"];
+
+            $erreur_inscription = "";
+        }
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
     <head>
@@ -20,7 +75,7 @@
                     <input type="text" name="search">
                 </form>
 
-                <?php if (false)
+                <?php if (!isset($_SESSION["identifiant"]))
                 {
                 ?>
                     <a id="connect">
@@ -33,7 +88,7 @@
                 ?>
                     <div id="profile_panel">
                         <button id="profile_panel_button">
-                            <img src="../img/arrow.svg">Username
+                            <img src="../img/arrow.svg"><?php echo $_SESSION["identifiant"] ?>
                         </button>
                         <div id="profile_panel_content">
                             <a href=""><img src="../img/user.svg">Mon compte</a>
@@ -67,66 +122,79 @@
 
         <main>
             <?php
-            /*    //connexion à la base de données en PDO
-                try
+                
+
+                if (isset($erreur_inscription))
                 {
-                    // On se connecte à MySQL
-                    $bdd = new PDO('mysql:host=localhost;dbname=itake', 'root', 'root');
+                    if ($erreur_inscription == "")
+                    {
+                        echo "<h1>Votre inscritption a été prises en compte !</h1>";
+                    }
+                    else
+                    {
+                        echo $erreur_inscription;
+                    }
                 }
-                catch(Exception $e)
+                else
                 {
-                    // En cas d'erreur, on affiche un message et on arrête tout
-                    die('Erreur : '.$e->getMessage());
+                    ?>
+
+                        <div id="connexion">
+                            <form method=post>
+                                <h4>Inscription</h4></br>
+                                <table id="table_connexion">
+                                    <tr>
+                                        <td><label>Identifiant :</label></td>
+                                        <td><input required type="text" name="identifiant"></td>
+                                    </tr>
+                                    <tr>
+                                        <td><label>Email :</label></td>
+                                        <td><input required type="email" name="email"></td>
+                                    </tr>
+                                    <tr>
+                                        <td><label>Mot de passe :</label></td>
+                                        <td><input required type="password" name="mdp" ></td></br>
+                                    </tr>
+                                    <tr>
+                                        <td><label>Répéter le Mot de passe :</label></td>
+                                        <td><input required type="password" name="mdp2" ></td></br>
+                                    </tr>
+                                    <?php 
+                                    /*    if ("mdp" == "mdp2")
+                                        {
+                                            echo "OK";
+                                        } 
+                                        else
+                                        {
+                                            echo "";
+                                        }
+                                    */
+                                    ?>
+                                    <tr>
+                                        <td></td><td><input required type="checkbox" name="cgu">J'accepte les conditions générales d'utilisations</td></br>
+                                        <?php 
+                                        /* 
+                                        if (empty($_POST["cgu"]))
+                                        {
+                                            echo "Vous n'avez pas accepter les cgu"
+                                        }
+                                        */
+                                        ?>
+                                    </tr>
+                                </table>
+                                <div>
+                                    <input class="case" type="submit" value="S'inscrire">
+                                </div>
+                            </form>
+                                
+                            
+                            
+                        </div>
+
+                    <?php
                 }
-            */
             ?>
-            <div id="connexion">
-                <form action="AjoutUser.php" method=post>
-                    <h4>Inscription</h4></br>
-                    <table id="table_connexion">
-                        <tr>
-                            <td><label id="email">Email :</label></td>
-                            <td><input id="ecart" type="email" name="email"></td>
-                        </tr>
-                        <tr>
-                            <td><label>Mot de passe :</label></td>
-                            <td><input type="password" name="mdp" ></td></br>
-                        </tr>
-                        <tr>
-                            <td><label>Répéter le Mot de passe :</label></td>
-                            <td><input type="password" name="mdp2" ></td></br>
-                        </tr>
-                        <?php 
-                        /*    if ("mdp" == "mdp2")
-                            {
-                                echo "OK";
-                            } 
-                            else
-                            {
-                                echo "";
-                            }
-                        */
-                        ?>
-                        <tr>
-                            <td></td><td><input type="checkbox" name="cgu">J'accepte les conditions générales d'utilisations</td></br>
-                            <?php 
-                            /* 
-                            if (empty($_POST["cgu"]))
-                            {
-                                echo "Vous n'avez pas accepter les cgu"
-                            }
-                            */
-                            ?>
-                        </tr>
-                    </table>
-                    <div>
-                        <input class="case" type="submit" value="S'inscrire">
-                    </div>
-                </form>
-                    
-                
-                
-            </div>
+            
         </main>
 
         <footer>
