@@ -16,7 +16,7 @@
         // On se connecte à MySQL
         if ($_SERVER['SERVER_NAME'] == 'localhost')
         {
-            $bdd = new PDO('mysql:host=localhost;dbname=itake;charset=utf8', 'root', '');
+            $bdd = new PDO ('mysql:host=localhost;dbname=itake', 'root','root');
             $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         }
         else
